@@ -51,6 +51,11 @@ public class Cliente {
         this.esportePreferenciaCliente = esportePreferenciaCliente;
     }
 
+    // Autenticação simples
+    public boolean autenticarCliente(String emailCliente, String senhaCliente) {
+        return this.emailCliente.equals(emailCliente) && this.senhaCliente.equals(senhaCliente);
+    }
+
     @Override
     public String toString() {
         return "Cliente " +

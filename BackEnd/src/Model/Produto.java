@@ -8,12 +8,12 @@ public class Produto {
     private String categoriaProduto;
     private double valorProduto;
     private String descricaoProduto;
-    private double tamanhoOuPesoProduto;
+    private String tamanhoOuPesoProduto;
 
     public Produto() {}
 
     public Produto(String nomeProduto, String categoriaProduto, double valorProduto,
-                   String descricaoProduto, double tamanhoOuPesoProduto) {
+                   String descricaoProduto, String tamanhoOuPesoProduto) {
         this.idProduto = contadorProduto++;
         this.nomeProduto = nomeProduto;
         this.categoriaProduto = categoriaProduto;
@@ -36,8 +36,8 @@ public class Produto {
     public String getDescricaoProduto() { return descricaoProduto; }
     public void setDescricaoProduto(String descricaoProduto) { this.descricaoProduto = descricaoProduto; }
 
-    public double getTamanhoOuPesoProduto() { return tamanhoOuPesoProduto; }
-    public void setTamanhoOuPesoProduto(double tamanhoOuPesoProduto) {
+    public String getTamanhoOuPesoProduto() { return tamanhoOuPesoProduto; }
+    public void setTamanhoOuPesoProduto(String tamanhoOuPesoProduto) {
         this.tamanhoOuPesoProduto = tamanhoOuPesoProduto;
     }
 
