@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meu carrinho - FitXpress</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div id="header-placeholder"></div>
+    <div id="nav-placeholder"></div>
+    <main class="container my-5">
+      <h2 class="text-center mb-4">MEU CARRINHO</h2>
+
+      <div class="row">
+        <!-- Lista de produtos -->
+        <div class="col-md-8" id="lista-carrinho">
+          <!-- Aqui o JS vai preencher os produtos -->
+        </div>
+
+        <!-- Resumo do pedido -->
+        <div class="col-md-4">
+          <div class="border p-4 bg-light">
+            <h5>Resumo do Pedido</h5>
+            <p>Subtotal: R$ <span id="subtotal">0.00</span></p>
+            <p>Frete: R$ <span id="frete">0.00</span></p>
+            <p>
+              <strong>Total: R$ <span id="total">0.00</span></strong>
+            </p>
+
+            <div class="mt-4">
+              <h6>Forma de Pagamento</h6>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="formaPgtoPedido"
+                  id="pagtoPix"
+                  value="Pix"
+                  required
+                />
+                <label class="form-check-label" for="pagtoPix">Pix</label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="formaPgtoPedido"
+                  id="pagtoBoleto"
+                  value="Boleto"
+                />
+                <label class="form-check-label" for="pagtoBoleto">Boleto</label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="formaPgtoPedido"
+                  id="pagtoCredito"
+                  value="Cartão de Crédito"
+                />
+                <label class="form-check-label" for="pagtoCredito"
+                  >Cartão de Crédito</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="formaPgtoPedido"
+                  id="pagtoDebito"
+                  value="Cartão de Débito"
+                />
+                <label class="form-check-label" for="pagtoDebito"
+                  >Cartão de Débito</label
+                >
+              </div>
+            </div>
+
+            <button
+              class="btn btn-warning w-100 mt-3"
+              onclick="finalizarCompra()"
+            >
+              Finalizar Compra
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <div id="footer-placeholder"></div>
+    <script src="../fitxpress-main/components/load-components.js"></script>
+    <script src="../fitxpress-main/js/carrinho.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
