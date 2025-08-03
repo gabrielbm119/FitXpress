@@ -23,9 +23,17 @@ function adicionarNoCarrinho() {
     return;
   }
 
-  let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+  const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
+  if (!usuario) {
+    alert("Você precisa estar logado para adicionar ao carrinho.");
+    window.location.href = "login.html";
+    return;
+  }
+
+  const chaveCarrinho = `carrinho_${usuario.email}`;
+  let carrinho = JSON.parse(localStorage.getItem(chaveCarrinho)) || [];
   carrinho.push(window.produtoAtual);
-  localStorage.setItem("carrinho", JSON.stringify(carrinho));
+  localStorage.setItem(chaveCarrinho, JSON.stringify(carrinho));
 
   alert("Produto adicionado ao carrinho!");
 }
