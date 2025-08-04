@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
     .then((data) => {
       document.getElementById("header-placeholder").innerHTML = data;
       atualizarHeaderUsuario();
+      inicializarBusca();
+
     });
 
   fetch("components/footer.html")
@@ -40,6 +42,8 @@ function inicializarBusca() {
     const resultadoPesquisa = produtos.filter((p) =>
       p.nome.toLowerCase().includes(busca)
     );
+
+    const produtosSeparados = document.getElementById("produtos-separados").scrollIntoView({behavior : 'smooth'});
 
     exibirTodosProdutos(resultadoPesquisa);
   });
