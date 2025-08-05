@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.Carrinho;
 import Model.Cliente;
 
 import static DataBase.DadosSimulados.listaClientes;
@@ -14,6 +15,9 @@ public class ClienteController {
     public Cliente autenticarCliente(String email, String senha) {
         for (Cliente cliente : listaClientes) {
             if (cliente.autenticarCliente(email, senha)) {
+                if (cliente.getCarrinho() == null) {
+                    cliente.setCarrinho(new Carrinho(cliente));
+                }
                 return cliente;
             }
         }

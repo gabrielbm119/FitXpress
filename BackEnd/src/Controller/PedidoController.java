@@ -1,9 +1,6 @@
 package Controller;
 
-import Model.Cliente;
-import Model.FormaPgto;
-import Model.Pedido;
-import Model.Produto;
+import Model.*;
 
 import static DataBase.DadosSimulados.listaPedidos;
 import java.util.ArrayList;
@@ -11,9 +8,11 @@ import java.util.List;
 
 public class PedidoController {
 
-    public Pedido criarPedido(Cliente cliente, List<Produto> listaProdutos, FormaPgto formaPgto) {
-        Pedido novoPedido = new Pedido(cliente, listaProdutos, formaPgto);
+    public Pedido criarPedido(Cliente cliente, FormaPgto formaPgto) {
+        Pedido novoPedido = new Pedido(cliente.getCarrinho(), formaPgto);
         listaPedidos.add(novoPedido);
+        cliente.getListaPedidos().add(novoPedido);
+        cliente.setCarrinho(new Carrinho(cliente)); // novo carrinho limpo
         return novoPedido;
     }
 

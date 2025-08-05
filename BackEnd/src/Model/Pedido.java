@@ -15,10 +15,10 @@ public class Pedido {
 
     public Pedido() {}
 
-    public Pedido(Cliente clientePedido, List<Produto> produtosPedido, FormaPgto formaPgtoPedido) {
+    public Pedido(Carrinho carrinho, FormaPgto formaPgto) {
         this.idPedido = contadorPedido++;
-        this.clientePedido = clientePedido;
-        this.produtosPedido = produtosPedido;
+        this.clientePedido = carrinho.getCliente();
+        this.produtosPedido = carrinho.getProdutos();
         this.formaPgtoPedido = formaPgtoPedido;
         this.valorFretePedido = calcularFretePedido();
         this.valorTotalPedido = calcularValorTotalPedido();
