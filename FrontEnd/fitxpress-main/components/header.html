@@ -1,89 +1,35 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
-        header{
-    background-color: #F6F94A;
-}
+      header {
+        background-color: #f6f94a;
+      }
     </style>
-</head>
+  </head>
 
-<header class="d-flex justify-content-between align-items-center px-5">
-        <img src="./assets/fitxpress.png" alt="logo" class="logo-fitxpress" style="width: 10%;">
-        <form action="" method="get" class="d-flex w-50 mx-4">
-            <input type="text" name="busca" placeholder="Pesquisar" class="form-control me-2">
-            <button type="submit" class="btn btn-dark">BUSCAR</button>
-        </form>
-        <a href="" class="text-decoration-none fw-bold text-dark">ENTRE OU CADASTRE-SE</a>
-    </header>
-    <nav class="navbar bg-dark navbar-expand-lg">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-menu">
-            <span class="navbar-toggler-icon text-white">...</span>
-        </button>
-        <div class="collapse navbar-collapse " id="nav-menu">
-            <ul class="navbar-nav d-flex justify-content-around w-100">
-                <!--dropdown indica que o item tera um submenu-->
-                <li class="nav-item dropdown">
-                    <!--nav-link aplica estilo // dropdown-toggle ativa a logica de abrir o submenu e adiciona seta // data-bs-toggle="dropdown"avisa o bootstrap que tera um submenu-->
-                    <a href="" class="nav-link text-white dropdown-toggle"  data-bs-toggle="dropdown">CICLISMO</a>
-                    <!--Define a lista de itens do submenu com aparência padrão do Bootstrap.-->
-                    <ul class="dropdown-menu">
-                        <!--Aplica estilo correto a cada link do submenu.-->
-                        <li><a href="" class="dropdown-item">Vestuário</a></li>
-                        <li><a href="" class="dropdown-item">Acessórios</a></li>
-                    </ul>
-                </li>
-
-                <li class="nav-item dropdown">
-                    <a href="" class="nav-link text-white dropdown-toggle" data-bs-toggle="dropdown">NATAÇÃO</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="" class="dropdown-item">Vestuário</a></li>
-                        <li><a href="" class="dropdown-item">Acessórios</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a href="" class="nav-link text-white dropdown-toggle" data-bs-toggle="dropdown">MUSCULAÇÃO</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="" class="dropdown-item">Vestuário</a></li>
-                        <li><a href="" class="dropdown-item">Acessórios</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a href="" class="nav-link text-white dropdown-toggle" data-bs-toggle="dropdown">BOXE E MUAY THAI</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="" class="dropdown-item">Vestuário</a></li>
-                        <li><a href="" class="dropdown-item">Acessórios</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a href="" class="nav-link text-white dropdown-toggle" data-bs-toggle="dropdown">SURF</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="" class="dropdown-item">Vestuário</a></li>
-                        <li><a href="" class="dropdown-item">Acessórios</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown"> 
-                    <a href="" class="nav-link text-white dropdown-toggle" data-bs-toggle="dropdown">BEACH TENIS</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="" class="dropdown-item">Vestuário</a></li>
-                        <li><a href="" class="dropdown-item">Acessórios</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a href="" class="nav-link text-white dropdown-toggle" data-bs-toggle="dropdown">FUTEBOL</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="" class="dropdown-item">Vestuário</a></li>
-                        <li><a href="" class="dropdown-item">Acessórios</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a href="" class="nav-link text-white dropdown-toggle" data-bs-toggle="dropdown">SUPLEMENTOS</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="" class="dropdown-item">SUPLEMENTOS</a></li>
-                    </ul>
-                </li>
-        </ul>
-        </div>
-    </nav>
+  <header
+    class="d-flex justify-content-between align-items-center px-4 py-3 w-100"
+  >
+    <img src="./assets/fitxpress.png" alt="logo" style="width: 10%" />
+    <form action="" method="get" class="d-flex w-50 mx-4" id="form-pesquisa">
+      <input
+        type="text"
+        name="busca"
+        placeholder="Pesquisar"
+        id="input-pesquisa"
+        class="form-control me-2"
+      />
+      <button type="submit" class="btn btn-dark">
+        <i class="bi bi-search"></i>
+      </button>
+    </form>
+    <div id="usuario-header">
+      <a href="./login.html" class="text-decoration-none fw-bold text-dark"
+        >ENTRE OU CADASTRE-SE</a
+      >
+    </div>
+  </header>
+</html>

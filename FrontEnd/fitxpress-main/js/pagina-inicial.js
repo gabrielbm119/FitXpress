@@ -102,7 +102,7 @@ const produtos = [
     id: 12,
     nome: "Saco de Pancadas Cutshock TB850 - Boxe e Muay Thai",
     descricao: "Saco de pancadas durável e resistente, ideal para treino intenso de boxe e muay thai.",
-    imagem: "./imagens/boxe-muaythai/punching-ball.png",
+    imagem: "./imagens/boxe-muaythai/saco-de-pancada.png",
     valor: "R$259,90",
     categoria: "boxe-muaythai",
     tipo: "acessorio"
@@ -435,7 +435,7 @@ const produtos = [
 }
 
 ];
-/*
+
 function gerarCardsAleatorios(qtd) {
     const container = document.getElementById("produtos-container");
     container.innerHTML = ""; // Limpa antes de renderizar
@@ -453,7 +453,7 @@ function gerarCardsAleatorios(qtd) {
               <p class = "card-text">${produto.valor}</p>
             </div>
             <div class="card-footer text-center">
-              <button class="btn btn-warning w-100">Comprar</button>
+              <button onclick="verProduto(${produto.id})" class="btn btn-warning w-100">Comprar</button>
             </div>
           </div>
         </div>
@@ -461,13 +461,11 @@ function gerarCardsAleatorios(qtd) {
     });
   }
 
-  // Ao carregar a página, mostra produtos aleatórios
   document.addEventListener("DOMContentLoaded", () => {
     gerarCardsAleatorios(8);
   });
-*/
 
-function exibirTodosProdutos(){
+function exibirTodosProdutos(produtos){
   const container= document.getElementById("produtos-container");
   container.innerHTML = "";
 
@@ -482,21 +480,36 @@ function exibirTodosProdutos(){
               <p class = "card-text">${produto.valor}</p>
             </div>
             <div class="card-footer text-center">
-              <button onclick="verProduto('produto-id')" class="btn btn-warning w-100">Comprar</button>
+              <button onclick="verProduto(${produto.id})" class="btn btn-warning w-100">Comprar</button>
             </div>
           </div>
         </div>
     `;
   });
+
+  const botaoVerTodos = document.getElementById("botao-ver-todos");
+  botaoVerTodos.innerHTML = "";
+
+  document.addEventListener("DOMContentLoaded", () => {
+  exibirTodosProdutos();
+  
+});
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  exibirTodosProdutos();
-});
+
 
 function verProduto(id){
-  localStorage.setItem("produtoSelecionado", id);
-  window.location.href = "./js/produto.js"; 
+  const produto = produtos.find(p => p.id === id);
+
+  if(!produto){
+    alert("produto nao encontrado")
+  }else{
+    localStorage.setItem("produtoSelecionado", JSON.stringify(produto));
+    window.location.href ="./produto.html";
+  }
+   
 }
+
+
 
 
