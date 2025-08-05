@@ -25,7 +25,7 @@ function carregarPedidos() {
     const card = `
       <div class="card mb-4">
         <div class="card-header">
-          <strong>Pedido #${index + 1}</strong>
+          <strong>Pedido ${index + 1}</strong>
         </div>
         <div class="card-body">
           <h5 class="mb-2">Cliente</h5>
