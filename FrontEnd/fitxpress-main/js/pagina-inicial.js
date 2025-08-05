@@ -6,7 +6,7 @@ const produtos = [
     imagem: "./imagens/beach-tenis/bolinhas.png",
     valor: "R$50,00",
     categoria: "beach-tenis",
-    tipo: "acessorio"
+    subcategoria: "acessorio"
   },
   {
     id: 2,
@@ -15,7 +15,7 @@ const produtos = [
     imagem: "./imagens/beach-tenis/camiseta-feminina.png",
     valor: "R$120,00",
     categoria: "beach-tenis",
-    tipo: "vestuario"
+    subcategoria: "vestuario"
   },
   {
     id: 3,
@@ -24,7 +24,7 @@ const produtos = [
     imagem: "./imagens/beach-tenis/munhequeira.png",
     valor: "R$30,00",
     categoria: "beach-tenis",
-    tipo: "vestuario"
+    subcategoria: "vestuario"
   },
   {
     id: 4,
@@ -33,7 +33,7 @@ const produtos = [
     imagem: "./imagens/beach-tenis/conjunto-feminino.png",
     valor: "R$250,00",
     categoria: "beach-tenis",
-    tipo: "vestuario"
+    subcategoria: "vestuario"
   },
   {
     id: 5,
@@ -42,7 +42,7 @@ const produtos = [
     imagem: "./imagens/beach-tenis/raquete-verde-azul.png",
     valor: "R$1.000,00",
     categoria: "beach-tenis",
-    tipo: "acessorio"
+    subcategoria: "acessorio"
   },
   {
     id: 6,
@@ -51,7 +51,7 @@ const produtos = [
     imagem: "./imagens/beach-tenis/raquete-vermelha.png",
     valor: "R$1.200,00",
     categoria: "beach-tenis",
-    tipo: "acessorio"
+    subcategoria: "acessorio"
   },
   {
     id: 7,
@@ -60,7 +60,7 @@ const produtos = [
     imagem: "./imagens/boxe-muaythai/bandagem.png",
     valor: "R$29,90",
     categoria: "boxe-muaythai",
-    tipo: "acessorio"
+    subcategoria: "acessorio"
   },
   {
     id: 8,
@@ -69,7 +69,7 @@ const produtos = [
     imagem: "./imagens/boxe-muaythai/capacete.png",
     valor: "R$129,90",
     categoria: "boxe-muaythai",
-    tipo: "acessorio"
+    subcategoria: "acessorio"
   },
   {
     id: 9,
@@ -78,7 +78,7 @@ const produtos = [
     imagem: "./imagens/boxe-muaythai/luva-branca.png",
     valor: "R$199,90",
     categoria: "boxe-muaythai",
-    tipo: "acessorio"
+    subcategoria: "acessorio"
   },
   {
     id: 10,
@@ -87,7 +87,7 @@ const produtos = [
     imagem: "./imagens/boxe-muaythai/luva-rosa.png",
     valor: "R$250,00",
     categoria: "boxe-muaythai",
-    tipo: "acessorio"
+    subcategoria: "acessorio"
   },
   {
     id: 11,
@@ -96,7 +96,7 @@ const produtos = [
     imagem: "./imagens/boxe-muaythai/punching-ball.png",
     valor: "R$999,90",
     categoria: "boxe-muaythai",
-    tipo: "acessorio"
+    subcategoria: "acessorio"
   },
   {
     id: 12,
@@ -105,7 +105,7 @@ const produtos = [
     imagem: "./imagens/boxe-muaythai/saco-de-pancada.png",
     valor: "R$259,90",
     categoria: "boxe-muaythai",
-    tipo: "acessorio"
+    subcategoria: "acessorio"
   },
 
   {
@@ -115,7 +115,7 @@ const produtos = [
     imagem: "./imagens/ciclismo/banco.jpg",
     valor: "R$69,90",
     categoria: "ciclismo",
-    tipo: "acessorio"
+    subcategoria: "acessorio"
   },
   {
     id: 14,
@@ -124,7 +124,7 @@ const produtos = [
     imagem: "./imagens/ciclismo/bicicleta-branca.jpg",
     valor: "R$1.100,00",
     categoria: "ciclismo",
-    tipo: "bike"
+    subcategoria: "bike"
   },
   {
     id: 15,
@@ -133,7 +133,7 @@ const produtos = [
     imagem: "./imagens/ciclismo/bicicleta-infantil-rosa.jpg",
     valor: "R$259,90",
     categoria: "ciclismo",
-    tipo: "bike"
+    subcategoria: "bike"
   },
   {
     id: 16,
@@ -142,7 +142,7 @@ const produtos = [
     imagem: "./imagens/ciclismo/bicicleta-preta.jpg",
     valor: "R$770,00",
     categoria: "ciclismo",
-    tipo: "bike"
+    subcategoria: "bike"
   },
   {
     id: 17,
@@ -151,7 +151,7 @@ const produtos = [
     imagem: "./imagens/ciclismo/capacete-preto.jpg",
     valor: "R$150,00",
     categoria: "ciclismo",
-    tipo: "acessorio"
+    subcategoria: "acessorio"
   },
   {
     id: 18,
@@ -160,7 +160,7 @@ const produtos = [
     imagem: "./imagens/ciclismo/capacete-fogo.jpg",
     valor: "R$150,00",
     categoria: "ciclismo",
-    tipo: "acessorio"
+    subcategoria: "acessorio"
   },
 
   {
@@ -170,7 +170,7 @@ const produtos = [
   imagem: "./imagens/futebol/blusa-inter.png",
   valor: "R$200,00",
   categoria: "futebol",
-  tipo: "vestuario"
+  subcategoria: "vestuario"
 },
 {
   id: 20,
@@ -179,7 +179,7 @@ const produtos = [
   imagem: "./imagens/futebol/gremio.jpg",
   valor: "R$200,00",
   categoria: "futebol",
-  tipo: "vestuario"
+  subcategoria: "vestuario"
 },
 {
   id: 21,
@@ -188,7 +188,7 @@ const produtos = [
   imagem: "./imagens/futebol/chuteira.jpg",
   valor: "R$500,00",
   categoria: "futebol",
-  tipo: "vestuario"
+  subcategoria: "vestuario"
 },
 {
   id: 22,
@@ -197,7 +197,7 @@ const produtos = [
   imagem: "./imagens/futebol/bola.jpg",
   valor: "R$600,00",
   categoria: "futebol",
-  tipo: "acessorio"
+  subcategoria: "acessorio"
 },
 {
   id: 23,
@@ -206,7 +206,7 @@ const produtos = [
   imagem: "./imagens/futebol/luva.jpg",
   valor: "R$600,00",
   categoria: "futebol",
-  tipo: "acessorio"
+  subcategoria: "acessorio"
 },
 {
   id: 24,
@@ -215,7 +215,7 @@ const produtos = [
   imagem: "./imagens/futebol/gol.jpg",
   valor: "R$600,00",
   categoria: "futebol",
-  tipo: "acessorio"
+  subcategoria: "acessorio"
 },
 {
   id: 25,
@@ -224,7 +224,7 @@ const produtos = [
   imagem: "./imagens/musculacao/camiseta-feminina-azul.png",
   valor: "R$120,00",
   categoria: "musculacao",
-  tipo: "vestuario"
+  subcategoria: "vestuario"
 },
 {
   id: 26,
@@ -233,7 +233,7 @@ const produtos = [
   imagem: "./imagens/musculacao/camiseta-termica.png",
   valor: "R$112,00",
   categoria: "musculacao",
-  tipo: "vestuario"
+  subcategoria: "vestuario"
 },
 {
   id: 27,
@@ -242,7 +242,7 @@ const produtos = [
   imagem: "./imagens/musculacao/legging.png",
   valor: "R$220,00",
   categoria: "musculacao",
-  tipo: "vestuario"
+  subcategoria: "vestuario"
 },
 {
   id: 28,
@@ -251,7 +251,7 @@ const produtos = [
   imagem: "./imagens/musculacao/top.png",
   valor: "R$99,90",
   categoria: "musculacao",
-  tipo: "vestuario"
+  subcategoria: "vestuario"
 },
 {
   id: 29,
@@ -260,7 +260,7 @@ const produtos = [
   imagem: "./imagens/musculacao/strap-rosa.png",
   valor: "R$39,90",
   categoria: "musculacao",
-  tipo: "acessorio"
+  subcategoria: "acessorio"
 },
 {
   id: 30,
@@ -269,7 +269,7 @@ const produtos = [
   imagem: "./imagens/musculacao/faixa-de-joelho.png",
   valor: "R$39,90",
   categoria: "musculacao",
-  tipo: "acessorio"
+  subcategoria: "acessorio"
 },
 {
   id: 31,
@@ -278,7 +278,7 @@ const produtos = [
   imagem: "./imagens/natacao/maio.jpg",
   valor: "R$189,90",
   categoria: "natacao",
-  tipo: "vestuario"
+  subcategoria: "vestuario"
 },
 {
   id: 32,
@@ -287,7 +287,7 @@ const produtos = [
   imagem: "./imagens/natacao/maio2.jpg",
   valor: "R$239,90",
   categoria: "natacao",
-  tipo: "vestuario"
+  subcategoria: "vestuario"
 },
 {
   id: 33,
@@ -296,7 +296,7 @@ const produtos = [
   imagem: "./imagens/natacao/sunga.jpg",
   valor: "R$79,90",
   categoria: "natacao",
-  tipo: "vestuario"
+  subcategoria: "vestuario"
 },
 {
   id: 34,
@@ -305,7 +305,7 @@ const produtos = [
   imagem: "./imagens/natacao/touca.png",
   valor: "R$79,90",
   categoria: "natacao",
-  tipo: "vestuario"
+  subcategoria: "vestuario"
 },
 {
   id: 35,
@@ -314,7 +314,7 @@ const produtos = [
   imagem: "./imagens/natacao/peDePato.jpg",
   valor: "R$339,90",
   categoria: "natacao",
-  tipo: "acessorio"
+  subcategoria: "acessorio"
 },
 {
   id: 36,
@@ -323,7 +323,7 @@ const produtos = [
   imagem: "./imagens/natacao/oculos.png",
   valor: "R$59,90",
   categoria: "natacao",
-  tipo: "acessorio"
+  subcategoria: "acessorio"
 },
 {
   id: 37,
@@ -332,7 +332,7 @@ const produtos = [
   imagem: "./imagens/surf/bermuda-feminina.png",
   valor: "R$129,90",
   categoria: "surf",
-  tipo: "vestuario"
+  subcategoria: "vestuario"
 },
 {
   id: 38,
@@ -341,7 +341,7 @@ const produtos = [
   imagem: "./imagens/surf/long-john.png",
   valor: "R$429,90",
   categoria: "surf",
-  tipo: "vestuario"
+  subcategoria: "vestuario"
 },
 {
   id: 39,
@@ -350,7 +350,7 @@ const produtos = [
   imagem: "./imagens/surf/prancha-rosa.png",
   valor: "R$2.809,90",
   categoria: "surf",
-  tipo: "prancha"
+  subcategoria: "prancha"
 },
 {
   id: 40,
@@ -359,7 +359,7 @@ const produtos = [
   imagem: "./imagens/surf/prancha-verde.png",
   valor: "R$2.800,00",
   categoria: "surf",
-  tipo: "prancha"
+  subcategoria: "prancha"
 },
 {
   id: 41,
@@ -368,7 +368,7 @@ const produtos = [
   imagem: "./imagens/surf/kit-standup.png",
   valor: "R$3.700,00",
   categoria: "surf",
-  tipo: "prancha"
+  subcategoria: "prancha"
 },
 {
   id: 42,
@@ -377,7 +377,7 @@ const produtos = [
   imagem: "./imagens/surf/leash-surf.png",
   valor: "R$2.800,00",
   categoria: "surf",
-  tipo: "acessorio"
+  subcategoria: "acessorio"
 },
 {
   id: 43,
@@ -386,7 +386,7 @@ const produtos = [
   imagem: "./imagens/suplementos/creatina-potinho.png",
   valor: "R$150,00",
   categoria: "suplemento",
-  tipo: "suplemento"
+  subcategoria: "suplemento"
 },
 {
   id: 44,
@@ -395,7 +395,7 @@ const produtos = [
   imagem: "./imagens/suplementos/creatina.png",
   valor: "R$159,00",
   categoria: "suplemento",
-  tipo: "suplemento"
+  subcategoria: "suplemento"
 },
 {
   id: 45,
@@ -404,7 +404,7 @@ const produtos = [
   imagem: "./imagens/suplementos/multivitaminico.png",
   valor: "R$59,00",
   categoria: "suplemento",
-  tipo: "suplemento"
+  subcategoria: "suplemento"
 },
 {
   id: 46,
@@ -413,7 +413,7 @@ const produtos = [
   imagem: "./imagens/suplementos/whey.png",
   valor: "R$150,00",
   categoria: "suplemento",
-  tipo: "suplemento"
+  subcategoria: "suplemento"
 },
 {
   id: 47,
@@ -422,7 +422,7 @@ const produtos = [
   imagem: "./imagens/suplementos/wheypronto.png",
   valor: "R$20,00",
   categoria: "suplemento",
-  tipo: "suplemento"
+  subcategoria: "suplemento"
 },
 {
   id: 48,
@@ -431,7 +431,7 @@ const produtos = [
   imagem: "./imagens/suplementos/pasta-de-amendoim.png",
   valor: "R$150,00",
   categoria: "suplemento",
-  tipo: "suplemento"
+  subcategoria: "suplemento"
 }
 
 ];

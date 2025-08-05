@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .then((response) => response.text())
     .then((data) => {
       document.getElementById("nav-placeholder").innerHTML = data;
+      filtroPorCategoria();
     });
 });
 
@@ -43,7 +44,7 @@ function inicializarBusca() {
       p.nome.toLowerCase().includes(busca)
     );
 
-    const produtosSeparados = document.getElementById("produtos-separados").scrollIntoView({behavior : 'smooth'});
+    document.getElementById("produtos-separados").scrollIntoView({behavior : 'smooth'});
 
     exibirTodosProdutos(resultadoPesquisa);
   });
@@ -73,4 +74,24 @@ function atualizarHeaderUsuario() {
   }
 }
 
+function filtroPorCategoria(){
+  const links = document.querySelectorAll('[data-categoria]', '[data-subcategoria]');
+
+  links.forEach(link => {
+    link.addEventListener("click", function (e){
+      e.preventDefault();
+      const categoria = this.getAttribute('data-categoria');
+      const subcategoria = this.getAttribute('data-subcategoria');
+      
+      const produtosFiltrados = produtos.filter(p =>
+        (!categoria || p.categoria === categoria) &&
+        (!subcategoria || p.subcategoria === subcategoria)
+      );
+      document.getElementById("produtos-separados").scrollIntoView({ behavior: "smooth" });
+      exibirTodosProdutos(produtosFiltrados);
+    })
+  })
+
+  
+}
 document.addEventListener("DOMContentLoaded", atualizarHeaderUsuario);
