@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
     .then((data) => {
       document.getElementById("header-placeholder").innerHTML = data;
       atualizarHeaderUsuario();
+      inicializarBusca();
+
     });
 
   fetch("components/footer.html")
@@ -16,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .then((response) => response.text())
     .then((data) => {
       document.getElementById("nav-placeholder").innerHTML = data;
+      filtroPorCategoria();
     });
 });
 
@@ -33,17 +36,16 @@ function inicializarBusca() {
 
     if (busca === "") {
       alert("produto não encontrado");
-      exibirTodosProdutos(produtos);
-      return;
+      //redireciona sem busca
+      window.location.href = 'pagina-inicial.html';
+    }else{
+      //redireciona para página inicial com o termo de busca
+      window.location.href = `pagina-inicial.html?busca=${encodeURIComponent(busca)}`;
     }
 
-    const resultadoPesquisa = produtos.filter((p) =>
-      p.nome.toLowerCase().includes(busca)
-    );
-
-    exibirTodosProdutos(resultadoPesquisa);
   });
 }
+
 
 function atualizarHeaderUsuario() {
   const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
@@ -67,6 +69,28 @@ function atualizarHeaderUsuario() {
       <a href="./login.html" class="text-decoration-none fw-bold text-dark">ENTRE OU CADASTRE-SE</a>
     `;
   }
+}
+
+function filtroPorCategoria(){
+  const links = document.querySelectorAll('[data-categoria], [data-subcategoria]');
+
+  links.forEach(link => {
+    link.addEventListener("click", function (e){
+      e.preventDefault();
+      const categoria = this.getAttribute('data-categoria');
+      const subcategoria = this.getAttribute('data-subcategoria');
+      
+      //monta query
+      let url = 'pagina-inicial.html?';
+      //se categoria existir, adiciona na URL com encode
+      if (categoria) url += `categoria=${encodeURIComponent(categoria)}`;
+      //se subcategoria existir, adiciona na URL com & para separar do parâmetro anterior
+      if (subcategoria) url += `&subcategoria=${encodeURIComponent(subcategoria)}`;
+      
+      //redireciona para a página inicial com os parâmetros
+      window.location.href = url;
+    });
+  });
 }
 
 document.addEventListener("DOMContentLoaded", atualizarHeaderUsuario);
