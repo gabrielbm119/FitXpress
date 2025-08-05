@@ -36,19 +36,16 @@ function inicializarBusca() {
 
     if (busca === "") {
       alert("produto não encontrado");
-      exibirTodosProdutos(produtos);
-      return;
+      //redireciona sem busca
+      window.location.href = 'pagina-inicial.html';
+    }else{
+      //redireciona para página inicial com o termo de busca
+      window.location.href = `pagina-inicial.html?busca=${encodeURIComponent(busca)}`;
     }
 
-    const resultadoPesquisa = produtos.filter((p) =>
-      p.nome.toLowerCase().includes(busca)
-    );
-
-    document.getElementById("produtos-separados").scrollIntoView({behavior : 'smooth'});
-
-    exibirTodosProdutos(resultadoPesquisa);
   });
 }
+
 
 function atualizarHeaderUsuario() {
   const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
@@ -75,7 +72,7 @@ function atualizarHeaderUsuario() {
 }
 
 function filtroPorCategoria(){
-  const links = document.querySelectorAll('[data-categoria]', '[data-subcategoria]');
+  const links = document.querySelectorAll('[data-categoria], [data-subcategoria]');
 
   links.forEach(link => {
     link.addEventListener("click", function (e){
@@ -83,15 +80,17 @@ function filtroPorCategoria(){
       const categoria = this.getAttribute('data-categoria');
       const subcategoria = this.getAttribute('data-subcategoria');
       
-      const produtosFiltrados = produtos.filter(p =>
-        (!categoria || p.categoria === categoria) &&
-        (!subcategoria || p.subcategoria === subcategoria)
-      );
-      document.getElementById("produtos-separados").scrollIntoView({ behavior: "smooth" });
-      exibirTodosProdutos(produtosFiltrados);
-    })
-  })
-
-  
+      //monta query
+      let url = 'pagina-inicial.html?';
+      //se categoria existir, adiciona na URL com encode
+      if (categoria) url += `categoria=${encodeURIComponent(categoria)}`;
+      //se subcategoria existir, adiciona na URL com & para separar do parâmetro anterior
+      if (subcategoria) url += `&subcategoria=${encodeURIComponent(subcategoria)}`;
+      
+      //redireciona para a página inicial com os parâmetros
+      window.location.href = url;
+    });
+  });
 }
+
 document.addEventListener("DOMContentLoaded", atualizarHeaderUsuario);
