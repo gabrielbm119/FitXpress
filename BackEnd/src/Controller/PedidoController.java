@@ -8,11 +8,18 @@ import java.util.List;
 
 public class PedidoController {
 
-    public Pedido criarPedido(Cliente cliente, FormaPgto formaPgto) {
-        Pedido novoPedido = new Pedido(cliente.getCarrinho(), formaPgto);
-        listaPedidos.add(novoPedido);
-        cliente.getListaPedidos().add(novoPedido);
-        cliente.setCarrinho(new Carrinho(cliente)); // novo carrinho limpo
+    private CarrinhoController carrinhoController;
+
+    public PedidoController(CarrinhoController carrinhoController) {
+        this.carrinhoController = carrinhoController;
+    }
+
+    public Pedido criarPedido(Cliente cliente, Carrinho carrinho, FormaPgto formaPgto) {
+        Pedido novoPedido = new Pedido(carrinho, formaPgto);
+        System.out.println(cliente.getCarrinho());
+        listaPedidos.add(novoPedido);                      // adiciona à lista global
+        cliente.getListaPedidos().add(novoPedido);         // adiciona à lista do cliente
+        carrinhoController.limparCarrinho(cliente);        // esvazia o carrinho do cliente
         return novoPedido;
     }
 
@@ -28,18 +35,5 @@ public class PedidoController {
             }
         }
         return pedidosDoCliente;
-    }
-
-    public boolean editarPedido(int idPedido, Cliente cliente, List<Produto> novosProdutos, FormaPgto novaFormaPgto) {
-        for (Pedido pedido : listaPedidos) {
-            if (pedido.getIdPedido() == idPedido && pedido.getClientePedido().getIdCliente() == cliente.getIdCliente()) {
-                pedido.setProdutosPedido(novosProdutos);
-                pedido.setFormaPgtoPedido(novaFormaPgto);
-                pedido.setValorFretePedido(pedido.calcularFretePedido());
-                pedido.setValorTotalPedido(pedido.calcularValorTotalPedido());
-                return true;
-            }
-        }
-        return false;
     }
 }

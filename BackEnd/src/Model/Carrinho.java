@@ -33,8 +33,13 @@ public class Carrinho {
         this.totalParcial += produto.getValorProduto();
     }
 
-    public void removerProdutoPorId(int idProduto) { produtos.removeIf(p -> p.getIdProduto() == idProduto);
-        calcularTotalParcial(); // recalcular após remoção
+    public void removerProdutoPorIndice(int indice) {
+        if (indice >= 0 && indice < produtos.size()) {
+            produtos.remove(indice);
+            calcularTotalParcial();
+        } else {
+            System.out.println("não achou");
+        }
     }
 
     public double getTotalParcial() { return totalParcial; }

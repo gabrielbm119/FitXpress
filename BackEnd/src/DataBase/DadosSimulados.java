@@ -16,7 +16,7 @@ public class DadosSimulados {
     static {
         // Endereço de exemplo
         Endereco enderecoExemplo = new Endereco(
-                "Rua A", "123", "", "Centro", "São Paulo", "SP", "01000-000"
+                "Rua A", "Centro", "", "01000-000", "São Paulo", "SP", "123"
         );
 
         // Cliente fictício

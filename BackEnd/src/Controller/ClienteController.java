@@ -9,6 +9,9 @@ import java.util.List;
 public class ClienteController {
 
     public void cadastrarCliente(Cliente cliente) {
+        if (buscarClientePorCpf(cliente.getCpfCliente()) != null) {
+            throw new IllegalArgumentException("Já existe um cliente com este CPF.");
+        }
         listaClientes.add(cliente);
     }
 

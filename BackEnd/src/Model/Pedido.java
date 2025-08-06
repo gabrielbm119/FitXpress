@@ -18,8 +18,8 @@ public class Pedido {
     public Pedido(Carrinho carrinho, FormaPgto formaPgto) {
         this.idPedido = contadorPedido++;
         this.clientePedido = carrinho.getCliente();
-        this.produtosPedido = carrinho.getProdutos();
-        this.formaPgtoPedido = formaPgtoPedido;
+        this.produtosPedido = new ArrayList<>(carrinho.getProdutos());
+        this.formaPgtoPedido = formaPgto;
         this.valorFretePedido = calcularFretePedido();
         this.valorTotalPedido = calcularValorTotalPedido();
     }

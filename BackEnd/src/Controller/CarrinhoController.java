@@ -14,11 +14,9 @@ import java.util.Map;
 public class CarrinhoController {
 
     private List<Produto> produtosDisponiveis; // referenciado a partir do "banco de dados" simulado
-    private List<Pedido> pedidosRegistrados;   // lista geral ou individual, depende da arquitetura
 
-    public CarrinhoController(List<Produto> produtosDisponiveis, List<Pedido> pedidosRegistrados) {
+    public CarrinhoController(List<Produto> produtosDisponiveis) {
         this.produtosDisponiveis = produtosDisponiveis;
-        this.pedidosRegistrados = pedidosRegistrados;
     }
 
     private Map<Integer, Carrinho> mapaCarrinhos = new HashMap<>();
@@ -27,6 +25,7 @@ public class CarrinhoController {
         if (!mapaCarrinhos.containsKey(cliente.getIdCliente())) {
             Carrinho novoCarrinho = new Carrinho(cliente);
             mapaCarrinhos.put(cliente.getIdCliente(), novoCarrinho);
+            cliente.setCarrinho(novoCarrinho);
             DadosSimulados.listaCarrinhos.add(novoCarrinho); // ← ADICIONAR AQUI
         }
     }
@@ -40,13 +39,15 @@ public class CarrinhoController {
         Produto produto = buscarProdutoPorId(idProduto);
         if (produto != null && carrinho != null) {
             carrinho.adicionarProduto(produto);
+            System.out.println("mudou");
         }
     }
 
-    public void removerProdutoDoCarrinho(Cliente cliente, int idProduto) {
+    public void removerProdutoDoCarrinhoPorIndice(Cliente cliente, int indice) {
         Carrinho carrinho = buscarCarrinhoPorCliente(cliente);
         if (carrinho != null) {
-            carrinho.removerProdutoPorId(idProduto);
+            System.out.println("achou o carrinho com sucesso.");
+            carrinho.removerProdutoPorIndice(indice);
         }
     }
 
@@ -54,16 +55,6 @@ public class CarrinhoController {
         Carrinho carrinho = buscarCarrinhoPorCliente(cliente);
         if (carrinho != null) {
             carrinho.getProdutos().clear();
-        }
-    }
-
-    public void finalizarPedido(Cliente cliente, FormaPgto formaPgtoSelecionada) {
-        Carrinho carrinho = buscarCarrinhoPorCliente(cliente);
-        if (carrinho != null && !carrinho.getProdutos().isEmpty()) {
-            Pedido novoPedido = new Pedido(carrinho, formaPgtoSelecionada);
-            cliente.getListaPedidos().add(novoPedido);
-            pedidosRegistrados.add(novoPedido); // se houver lista global
-            cliente.setCarrinho(new Carrinho(cliente)); // novo carrinho limpo
         }
     }
 
