@@ -1,5 +1,6 @@
 package App;
 
+import Controller.CarrinhoController;
 import Controller.ClienteController;
 import Controller.ProdutoController;
 import Controller.PedidoController;
@@ -13,7 +14,10 @@ import java.util.List;
 public class Sistema {
     private ClienteController clienteController = new ClienteController();
     private ProdutoController produtoController = new ProdutoController();
-    private PedidoController pedidoController = new PedidoController();
+    private CarrinhoController carrinhoController = new CarrinhoController(
+            DadosSimulados.listaProdutos
+    );
+    private PedidoController pedidoController = new PedidoController(carrinhoController);
 
     public void iniciarSistema() {
         while (true) {
@@ -97,6 +101,8 @@ public class Sistema {
             clienteController.cadastrarCliente(novoCliente);
 
             JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar cliente: " + e.getMessage());
         }
@@ -109,6 +115,7 @@ public class Sistema {
         Cliente clienteAutenticado = clienteController.autenticarCliente(email, senha);
 
         if (clienteAutenticado != null) {
+            carrinhoController.criarCarrinho(clienteAutenticado); // ← AQUI!
             JOptionPane.showMessageDialog(null, "Login realizado com sucesso! Bem-vindo, " + clienteAutenticado.getNomeCliente());
             menuClienteLogado(clienteAutenticado);
         } else {
@@ -119,10 +126,10 @@ public class Sistema {
     private void menuClienteLogado(Cliente cliente) {
         while (true) {
             String[] opcoes = {
-                    "Fazer novo pedido",
-                    "Visualizar meus pedidos",
+                    "Meu carrinho",
+                    "Meus pedidos",
                     "Editar meu cadastro",
-                    "Sair"
+                    "Voltar"
             };
 
             int escolha = JOptionPane.showOptionDialog(
@@ -137,75 +144,190 @@ public class Sistema {
             );
 
             switch (escolha) {
-                case 0: fazerPedido(cliente); break;
-                case 1: visualizarPedidos(cliente); break;
-                case 2: editarCadastro(cliente); break;
-                default: return;
+                case 0 -> abrirMenuCarrinho(cliente);
+                case 1 -> visualizarPedidos(cliente);
+                case 2 -> editarCadastro(cliente);
+                default -> { return; }
             }
         }
     }
 
-    private void fazerPedido(Cliente cliente) {
-        List<Produto> listaProdutos = DadosSimulados.listaProdutos;
+    private void abrirMenuCarrinho(Cliente cliente) {
+        while (true) {
+            String[] opcoes = {
+                    "Visualizar produtos no carrinho",
+                    "Adicionar produto",
+                    "Remover produto",
+                    "Finalizar pedido",
+                    "Voltar"
+            };
 
-        if (listaProdutos.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Nenhum produto disponível no momento.");
+            int escolha = JOptionPane.showOptionDialog(
+                    null,
+                    "Gerenciamento do Carrinho",
+                    "Carrinho de " + cliente.getNomeCliente(),
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.INFORMATION_MESSAGE,
+                    null,
+                    opcoes,
+                    opcoes[0]
+            );
+
+            switch (escolha) {
+                case 0 -> visualizarCarrinho(cliente);
+                case 1 -> adicionarProdutoCarrinho(cliente);
+                case 2 -> removerProdutoCarrinho(cliente);
+                case 3 -> finalizarPedido(cliente);
+                default -> { return; }
+            }
+        }
+    }
+
+    private void visualizarCarrinho(Cliente cliente) {
+        Carrinho carrinho = carrinhoController.buscarCarrinhoPorCliente(cliente);
+
+        if (carrinho == null || carrinho.getProdutos().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Seu carrinho está vazio.");
             return;
         }
 
-        List<Produto> produtosSelecionados = new ArrayList<>();
+        StringBuilder sb = new StringBuilder("Produtos no seu carrinho:\n");
 
-        while (true) {
-            StringBuilder lista = new StringBuilder("Produtos disponíveis:\n");
-            for (Produto produto : listaProdutos) {
-                lista.append(produto.getIdProduto()).append(" - ").append(produto.getNomeProduto())
-                        .append(" (R$ ").append(String.format("%.2f", produto.getValorProduto())).append(")\n");
-            }
-
-            String idStr = JOptionPane.showInputDialog(lista +
-                    "\nDigite o ID do produto que deseja adicionar ao pedido (ou deixe em branco para finalizar):");
-
-            if (idStr == null || idStr.trim().isEmpty()) break;
-
-            try {
-                int id = Integer.parseInt(idStr);
-                Produto produtoSelecionado = produtoController.buscarProdutoPorId(id);
-                if (produtoSelecionado != null) {
-                    produtosSelecionados.add(produtoSelecionado);
-                    JOptionPane.showMessageDialog(null, "Produto adicionado!");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Produto não encontrado.");
-                }
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "ID inválido.");
-            }
+        List<Produto> produtos = carrinho.getProdutos();
+        for (int i = 0; i < produtos.size(); i++) {
+            Produto p = produtos.get(i);
+            sb.append(String.format(
+                    "%d - %s (ID: %d) | R$ %.2f\n",
+                    i + 1,
+                    p.getNomeProduto(),
+                    p.getIdProduto(),
+                    p.getValorProduto()
+            ));
         }
 
-        if (produtosSelecionados.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Nenhum produto selecionado. Pedido cancelado.");
+        sb.append("\nTotal parcial: R$ ").append(String.format("%.2f", carrinho.getTotalParcial()));
+
+        JOptionPane.showMessageDialog(null, sb.toString());
+    }
+
+    private void adicionarProdutoCarrinho(Cliente cliente) {
+        StringBuilder sb = new StringBuilder("Produtos disponíveis:\n");
+
+        List<Produto> produtosDisponiveis = produtoController.listarTodosProdutos();
+
+        for (int i = 0; i < produtosDisponiveis.size(); i++) {
+            Produto p = produtosDisponiveis.get(i);
+            sb.append(String.format(
+                    "%d - %s (ID: %d) | R$ %.2f\n",
+                    i + 1,
+                    p.getNomeProduto(),
+                    p.getIdProduto(),
+                    p.getValorProduto()
+            ));
+        }
+
+        String input = JOptionPane.showInputDialog(null, sb + "\nDigite o número do produto que deseja adicionar ao carrinho:");
+
+        if (input == null || input.isBlank()) return;
+
+        try {
+            int indice = Integer.parseInt(input) - 1;
+            System.out.println("Indice digitado: " + input + " | Interpretado: " + indice);
+
+            if (indice < 0 || indice >= produtosDisponiveis.size()) {
+                JOptionPane.showMessageDialog(null, "Número inválido.");
+                return;
+            }
+
+            carrinhoController.adicionarProdutoAoCarrinho(cliente, produtosDisponiveis.get(indice).getIdProduto());
+            JOptionPane.showMessageDialog(null, "Produto adicionado ao carrinho com sucesso!");
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Entrada inválida.");
+        }
+    }
+
+    private void removerProdutoCarrinho(Cliente cliente) {
+        Carrinho carrinho = carrinhoController.buscarCarrinhoPorCliente(cliente);
+
+        if (carrinho == null || carrinho.getProdutos().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Seu carrinho está vazio.");
+            return;
+        }
+
+        StringBuilder sb = new StringBuilder("Produtos no carrinho:\n");
+
+        List<Produto> produtos = carrinho.getProdutos();
+        for (int i = 0; i < produtos.size(); i++) {
+            Produto p = produtos.get(i);
+            sb.append(String.format(
+                    "%d - %s (ID: %d) | R$ %.2f\n",
+                    i + 1,
+                    p.getNomeProduto(),
+                    p.getIdProduto(),
+                    p.getValorProduto()
+            ));
+        }
+
+        String input = JOptionPane.showInputDialog(null, sb + "\nDigite o número do produto que deseja remover:");
+
+        if (input == null || input.isBlank()) return;
+
+        try {
+            int indice = Integer.parseInt(input) - 1;
+            System.out.println("Indice digitado: " + input + " | Interpretado: " + indice);
+
+            if (indice < 0 || indice >= produtos.size()) {
+                JOptionPane.showMessageDialog(null, "Número inválido.");
+                return;
+            }
+
+            carrinhoController.removerProdutoDoCarrinhoPorIndice(cliente, indice);
+            JOptionPane.showMessageDialog(null, "Produto removido do carrinho com sucesso.");
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Entrada inválida.");
+        }
+    }
+
+    private void finalizarPedido(Cliente cliente) {
+        Carrinho carrinho = carrinhoController.buscarCarrinhoPorCliente(cliente);
+
+        if (carrinho == null || carrinho.getProdutos().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Seu carrinho está vazio.");
             return;
         }
 
         String[] formasPgto = {"Pix", "Boleto", "Cartão de Crédito", "Cartão de Débito"};
-        int escolhaPgto = JOptionPane.showOptionDialog(null, "Escolha a forma de pagamento:",
-                "Pagamento", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
-                null, formasPgto, formasPgto[0]);
+        int escolha = JOptionPane.showOptionDialog(
+                null,
+                "Escolha a forma de pagamento:",
+                "Pagamento",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                formasPgto,
+                formasPgto[0]
+        );
 
-        FormaPgto formaPgtoSelecionada = switch (escolhaPgto) {
-            case 0 -> FormaPgto.PIX;
+        if (escolha == -1) return;
+
+        FormaPgto formaSelecionada = switch (escolha) {
+            case 0 -> FormaPgto.PIX   ;
             case 1 -> FormaPgto.BOLETO;
             case 2 -> FormaPgto.CREDITO;
             case 3 -> FormaPgto.DEBITO;
             default -> null;
         };
 
-        if (formaPgtoSelecionada == null) {
-            JOptionPane.showMessageDialog(null, "Pedido cancelado.");
+        if (formaSelecionada == null) {
+            JOptionPane.showMessageDialog(null, "Forma de pagamento inválida.");
             return;
         }
 
-        Pedido novoPedido = pedidoController.criarPedido(cliente, produtosSelecionados, formaPgtoSelecionada);
-        JOptionPane.showMessageDialog(null, "Pedido criado com sucesso!\n\n" + novoPedido);
+        pedidoController.criarPedido(cliente, carrinho, formaSelecionada);
+        carrinhoController.limparCarrinho(cliente);
+        JOptionPane.showMessageDialog(null, "Pedido finalizado com sucesso!");
     }
 
     private void visualizarPedidos(Cliente cliente) {
@@ -244,13 +366,21 @@ public class Sistema {
             // Criar novo endereço e atualizar dados
             Endereco novoEndereco = new Endereco(novaRua, novoNumero, novoComplemento, novoBairro, novaCidade, novoEstado, novoCep);
 
-            cliente.setNomeCliente(novoNome);
-            cliente.setEmailCliente(novoEmail);
-            cliente.setTelefoneCliente(novoTelefone);
-            cliente.setEsportePreferenciaCliente(novoEsporte);
-            cliente.setEnderecoCliente(novoEndereco);
+            // Criar um objeto Cliente com os novos dados (mesmo CPF e senha mantidos)
+            Cliente clienteAtualizado = new Cliente();
+            clienteAtualizado.setNomeCliente(novoNome);
+            clienteAtualizado.setEmailCliente(novoEmail);
+            clienteAtualizado.setTelefoneCliente(novoTelefone);
+            clienteAtualizado.setEsportePreferenciaCliente(novoEsporte);
+            clienteAtualizado.setEnderecoCliente(novoEndereco);
 
-            JOptionPane.showMessageDialog(null, "Cadastro atualizado com sucesso!");
+            boolean sucesso = clienteController.editarCliente(cliente.getCpfCliente(), clienteAtualizado);
+
+            if (sucesso) {
+                JOptionPane.showMessageDialog(null, "Cadastro atualizado com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro ao atualizar o cadastro.");
+            }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao editar cadastro: " + e.getMessage());

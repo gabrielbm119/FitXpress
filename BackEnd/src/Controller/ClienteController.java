@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.Carrinho;
 import Model.Cliente;
 
 import static DataBase.DadosSimulados.listaClientes;
@@ -8,12 +9,18 @@ import java.util.List;
 public class ClienteController {
 
     public void cadastrarCliente(Cliente cliente) {
+        if (buscarClientePorCpf(cliente.getCpfCliente()) != null) {
+            throw new IllegalArgumentException("Já existe um cliente com este CPF.");
+        }
         listaClientes.add(cliente);
     }
 
     public Cliente autenticarCliente(String email, String senha) {
         for (Cliente cliente : listaClientes) {
             if (cliente.autenticarCliente(email, senha)) {
+                if (cliente.getCarrinho() == null) {
+                    cliente.setCarrinho(new Carrinho(cliente));
+                }
                 return cliente;
             }
         }

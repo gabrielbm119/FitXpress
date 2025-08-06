@@ -1,9 +1,6 @@
 package Controller;
 
-import Model.Cliente;
-import Model.FormaPgto;
-import Model.Pedido;
-import Model.Produto;
+import Model.*;
 
 import static DataBase.DadosSimulados.listaPedidos;
 import java.util.ArrayList;
@@ -11,9 +8,18 @@ import java.util.List;
 
 public class PedidoController {
 
-    public Pedido criarPedido(Cliente cliente, List<Produto> listaProdutos, FormaPgto formaPgto) {
-        Pedido novoPedido = new Pedido(cliente, listaProdutos, formaPgto);
-        listaPedidos.add(novoPedido);
+    private CarrinhoController carrinhoController;
+
+    public PedidoController(CarrinhoController carrinhoController) {
+        this.carrinhoController = carrinhoController;
+    }
+
+    public Pedido criarPedido(Cliente cliente, Carrinho carrinho, FormaPgto formaPgto) {
+        Pedido novoPedido = new Pedido(carrinho, formaPgto);
+        System.out.println(cliente.getCarrinho());
+        listaPedidos.add(novoPedido);                      // adiciona à lista global
+        cliente.getListaPedidos().add(novoPedido);         // adiciona à lista do cliente
+        carrinhoController.limparCarrinho(cliente);        // esvazia o carrinho do cliente
         return novoPedido;
     }
 
@@ -29,18 +35,5 @@ public class PedidoController {
             }
         }
         return pedidosDoCliente;
-    }
-
-    public boolean editarPedido(int idPedido, Cliente cliente, List<Produto> novosProdutos, FormaPgto novaFormaPgto) {
-        for (Pedido pedido : listaPedidos) {
-            if (pedido.getIdPedido() == idPedido && pedido.getClientePedido().getIdCliente() == cliente.getIdCliente()) {
-                pedido.setProdutosPedido(novosProdutos);
-                pedido.setFormaPgtoPedido(novaFormaPgto);
-                pedido.setValorFretePedido(pedido.calcularFretePedido());
-                pedido.setValorTotalPedido(pedido.calcularValorTotalPedido());
-                return true;
-            }
-        }
-        return false;
     }
 }

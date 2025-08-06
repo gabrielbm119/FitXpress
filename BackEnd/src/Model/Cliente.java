@@ -1,5 +1,8 @@
 package Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Cliente {
     private static int contadorCliente = 1;
 
@@ -9,6 +12,8 @@ public class Cliente {
     private String emailCliente;
     private String senhaCliente;
     private String telefoneCliente;
+    private Carrinho carrinho;
+    private List<Pedido> listaPedidos = new ArrayList<>();
     private Endereco enderecoCliente;
     private String esportePreferenciaCliente;
 
@@ -42,6 +47,12 @@ public class Cliente {
 
     public String getTelefoneCliente() { return telefoneCliente; }
     public void setTelefoneCliente(String telefoneCliente) { this.telefoneCliente = telefoneCliente; }
+
+    public Carrinho getCarrinho() { return carrinho; }
+    public void setCarrinho(Carrinho carrinho) { this.carrinho = carrinho; }
+
+    public List<Pedido> getListaPedidos() { return listaPedidos; }
+    public void setListaPedidos(List<Pedido> listaPedidos) { this.listaPedidos = listaPedidos; }
 
     public Endereco getEnderecoCliente() { return enderecoCliente; }
     public void setEnderecoCliente(Endereco enderecoCliente) { this.enderecoCliente = enderecoCliente; }
